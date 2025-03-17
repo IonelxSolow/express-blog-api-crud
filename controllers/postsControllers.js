@@ -26,7 +26,8 @@ function show(req, res) {
 
 function create(req, res) {
 const title = req.body.title;
-const newSlug = title.toLowerCase(); 
+const newSlug = title.toLowerCase().replace(/\s+/g, '-'); 
+
 const newPost = {
   title: title,
   slug: newSlug,
@@ -46,7 +47,23 @@ res.json(newPost)
 }
 
 function update(req, res) {
-  res.send(`Aggiorna il post con id: ${req.params.id}`)
+  const postSlug = req.params.slug
+  const findPost = postsData.find(post => post.slug === postSlug)
+  if (!findPost) {
+    return res.status(404).json({
+      error: '404 Not Found',
+      message: 'Post not found'
+    })
+  }
+  findPost.title = req.body.title;
+  findPost.slug = req.body.slug;
+  findPost.image = req.body.image;
+  findPost.tags = req.body.tags;
+
+  console.log(findPost)
+
+  res.json(findPost)
+  /* res.send(`Aggiorna il post con id: ${req.params.id}`) */
 }
 
 function modify(req, res) {
