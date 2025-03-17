@@ -57,6 +57,7 @@ function update(req, res) {
   }
   findPost.title = req.body.title;
   findPost.slug = req.body.slug;
+  findPost.content = req.body.content;
   findPost.image = req.body.image;
   findPost.tags = req.body.tags;
 
@@ -66,8 +67,37 @@ function update(req, res) {
   /* res.send(`Aggiorna il post con id: ${req.params.id}`) */
 }
 
+
 function modify(req, res) {
-  res.send(`modificato il post con id: ${req.params.id}`)
+  const postSlug = req.params.slug
+  const findPost = postsData.find(post => post.slug === postSlug)
+  if (!findPost) {
+    return res.status(404).json({
+      error: '404 Not Found',
+      message: 'Post not found'
+    })
+  }
+  if (req.body.title) {
+    findPost.title = req.body.title;
+  } 
+  if(req.body.content){
+    findPost.slug = req.body.slug
+  }
+  if (req.body.content) {
+    findPost.content = req.body.content
+  }
+  if(req.body.image) {
+    findPost.content = req.body.image
+  }
+  if(req.body.tags) {
+    findPost.tags = req.body.tags
+  }
+ 
+
+  console.log(findPost)
+
+  res.json(findPost)
+  /* res.send(`modificato il post con id: ${req.params.id}`) */
 }
 
 function destroy(req, res) {
