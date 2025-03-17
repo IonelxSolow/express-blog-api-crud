@@ -5,7 +5,10 @@ const port = 3000;
 
 const postsRouter = require('./routers/posts');
 
+app.use(express.json());
+
 app.use('/posts', postsRouter)
+
 
 // first route 
 app.get('/', (req, res) =>{
@@ -13,7 +16,6 @@ app.get('/', (req, res) =>{
 });
 //midleware serve static files from the "public" folder
 app.use(express.static('public'));
-
 
 
 // app listening on port: 3000
