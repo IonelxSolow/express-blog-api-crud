@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 
 const postsRouter = require('./routers/posts');
+const routeError = require('./middleware/routeError');
 
 app.use(express.json());
 
@@ -16,6 +17,8 @@ app.get('/', (req, res) =>{
 });
 //midleware serve static files from the "public" folder
 app.use(express.static('public'));
+
+app.use(routeError);
 
 
 // app listening on port: 3000
