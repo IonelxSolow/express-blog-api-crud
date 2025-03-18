@@ -5,6 +5,7 @@ const port = 3000;
 
 const postsRouter = require('./routers/posts');
 const routeError = require('./middleware/routeError');
+const middError = require('./middleware/middError');
 
 app.use(express.json());
 
@@ -20,8 +21,10 @@ app.use(express.static('public'));
 
 app.use(routeError);
 
+app.use(middError);
+
 
 // app listening on port: 3000
 app.listen(port, () => {
     console.log(`Server running on port http://localhost:${port}`)
-})
+});
